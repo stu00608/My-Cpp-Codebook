@@ -5,18 +5,11 @@ project(MyCppCodeBook)
 # Build with C++14
 set(CMAKE_CXX_STANDARD 14)
 
-# Check System Name.
-message("This is a ${RED}${CMAKE_SYSTEM_NAME}${ColourReset} system")
+# Where the executable.
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+# Where libraries.
+set(LIBRARY_OUTPUT_PATH  ${CMAKE_BINARY_DIR}/lib)
 
-# Create a macro can be used inside source code.
-add_definitions(-DCMAKEMACROSEXAMPLE="Apple")
-
-# Compile exec to build/
-# ${CMAKE_BINARY_DIR}/.. install exec to project root.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY 
-${CMAKE_BINARY_DIR})
-
-add_executable(main main.cpp
-lib/math/operations.cpp
-lib/math/operations.hpp
-)
+add_library(math SHARED lib/math/operations.cpp)
+add_executable(main main.cpp)
+target_link_libraries(main math)
